@@ -46,6 +46,9 @@ app.post("/signup",function(req,res){
 
 })
 
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
 
 // app.listen(3000,function(){
 //     console.log("Shifaa's Server Started in Port 3000")
