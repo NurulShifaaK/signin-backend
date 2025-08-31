@@ -67,7 +67,9 @@ const cors = require("cors");
 
 const app = express();
 
+// --------------------
 // In-memory user storage
+// --------------------
 let users = [
   {
     email: "shifaa",
@@ -75,19 +77,28 @@ let users = [
   },
 ];
 
+// --------------------
 // CORS middleware
-app.use(
-  cors({
-    origin: "https://signin-frontend-virid.vercel.app", // your Vercel frontend URL
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
-);
+// --------------------
+app.use(cors({
+  origin: "https://signin-frontend-virid.vercel.app", // your frontend URL
+  methods: ["GET", "POST", "OPTIONS"], // include OPTIONS for preflight
+  credentials: true
+}));
 
+// Handle preflight requests for all routes
+app.options("*", cors());
+
+// --------------------
 // JSON middleware
+// --------------------
 app.use(express.json());
 
-// Root route (test if backend is running)
+// --------------------
+// Routes
+// --------------------
+
+// Test route
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
@@ -123,7 +134,9 @@ app.post("/signup", (req, res) => {
   res.send("User registered successfully!");
 });
 
+// --------------------
 // Start server
+// --------------------
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Shifaa's Server started on port ${PORT}`);
